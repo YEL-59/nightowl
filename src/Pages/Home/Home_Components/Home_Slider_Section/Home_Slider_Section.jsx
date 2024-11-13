@@ -40,7 +40,15 @@ const Home_Slider_Section = () => {
           </div>
           <div className="col-span-12 lg:col-span-9 ">
             <div className="h-[300px] md:h-[300px] w-full bg-red-500">
-              <Slider slides={slides} />
+              <Slider
+                slides={slides}
+                options={{
+                  autoplay: { delay: 2500, disableOnInteraction: false },
+                  pagination: { clickable: true },
+                  navigation: true,
+                  loop: true,
+                }}
+              />
             </div>
           </div>
         </div>
