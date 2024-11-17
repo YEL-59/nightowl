@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
 import navlogo from '/vite.svg';
@@ -10,9 +10,9 @@ const NavBar = () => {
     { name: 'About Us', link: '/aboutus', icon: <FaInfoCircle className="text-2xl" /> },
     { name: 'Contact Us', link: '/contact_us', icon: <FaPhone className="text-2xl" /> },
   ];
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <div>
+    <div className="bg-blue-400">
       <nav className="container mx-auto flex flex-col md:flex-row justify-between items-center text-black py-4 px-5">
         
         {/* Logo and Icons - Displayed together on small screens */}
@@ -21,7 +21,8 @@ const NavBar = () => {
             <img src={navlogo} alt="main logo" className="drop-shadow-xl" />
           </a>
           <div className="flex md:hidden gap-4">
-            {Links.map((link) => (
+            {isLoggedIn ? (
+            Links.map((link) => (
               <Link
                 key={link.name}
                 to={link.link}
@@ -29,7 +30,17 @@ const NavBar = () => {
               >
                 <span className="text-xl">{link.icon}</span>
               </Link>
-            ))}
+            ))
+         
+          ):(
+            <button
+            onClick={() => setIsLoggedIn(true)} 
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          >
+            Login
+          </button>
+            )}
+            
             <Link to="/cart" className="text-black hover:text-blue-500">
               <FaShoppingBag className="text-2xl" />
             </Link>
@@ -57,18 +68,28 @@ const NavBar = () => {
 
         {/* Links for large screens */}
         <div className="hidden md:flex items-center gap-4">
-          {Links.map((link) => (
-            <Link
-              key={link.name}
-              to={link.link}
-              className="text-black hover:text-blue-500 flex items-center"
-            >
-              <span className="hidden md:block font-medium">{link.name}</span>
-            </Link>
-          ))}
-          <Link to="/cart" className="text-black hover:text-blue-500 flex items-center">
+        {isLoggedIn ? (
+            Links.map((link) => (
+              <Link
+                key={link.name}
+                to={link.link}
+                className="text-black hover:text-blue-500"
+              >
+                <span className="text-xl">{link.icon}</span>
+              </Link>
+            ))
+         
+          ):(
+            <button
+            onClick={()=>setIsLoggedIn(true)}
+            className="border text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          >
+            Login
+          </button>
+            )}
+          <Link to="/cart" className="text-white hover:text-blue-500 flex justify-center items-center">
             <FaShoppingBag className="text-2xl" />
-            <span className="hidden md:block font-medium">Cart</span>
+            <span className="hidden md:block font-medium ">Cart</span>
           </Link>
         </div>
       </nav>

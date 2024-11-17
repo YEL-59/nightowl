@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
       >
         <NavBar />
       </div>
-      <div className="pt-20">
+      <div className="pt-20 mt-10">
         {children}
       </div>
      <div className="">
